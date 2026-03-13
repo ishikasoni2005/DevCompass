@@ -1,0 +1,87 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-devcompass}
+      POSTGRES_USER: ${POSTGRES_USER:-devcompass}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devcompass}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-devcompass} -d ${POSTGRES_DB:-devcompass}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-change-me}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-True}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000}
+      POSTGRES_DB: ${POSTGRES_DB:-devcompass}
+      POSTGRES_USER: ${POSTGRES_USER:-devcompass}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devcompass}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      ACCESS_TOKEN_LIFETIME_MINUTES: ${ACCESS_TOKEN_LIFETIME_MINUTES:-60}
+      REFRESH_TOKEN_LIFETIME_DAYS: ${REFRESH_TOKEN_LIFETIME_DAYS:-7}
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-True}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "8000:8000"
+    volumes:
+      - media_data:/app/media
+
+  celery:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: celery -A devcompass worker --loglevel=info
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-change-me}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-True}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      POSTGRES_DB: ${POSTGRES_DB:-devcompass}
+      POSTGRES_USER: ${POSTGRES_USER:-devcompass}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devcompass}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
+  redis_data:
+  media_data:
+
