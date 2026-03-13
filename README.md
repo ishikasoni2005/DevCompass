@@ -1,133 +1,280 @@
-# 🧭DevCompass – AI Powered Developer Career Navigator
+# 🧭 DevCompass – AI Powered Developer Career Navigator
 
+DevCompass is an **AI-powered platform that helps developers navigate their journey to becoming skilled software engineers**.  
+It analyzes a user's **skills, coding activity, projects, and career goals** to generate **personalized learning roadmaps, structured courses, project recommendations, and interview preparation strategies**.
 
-**DevCompass** is an AI-powered developer guidance platform that helps programmers and students navigate their journey to becoming skilled software engineers.
-
-The platform analyzes a user's technical skills, coding practice patterns, and project experience to generate **personalized learning roadmaps, project recommendations, and interview preparation strategies**.
-
-DevCompass aims to act as an **intelligent career mentor** that guides developers step-by-step toward mastering software engineering concepts and preparing for real-world technical interviews.
+DevCompass acts as a **digital career mentor for developers**, guiding them step-by-step toward mastering technologies and preparing for real-world technical interviews.
 
 ---
 
-## 🚀 Features
+# 🚀 Features
 
-### 🧠 Personalized Learning Roadmaps
-Generates customized learning paths based on the user's current skills and career goals.
+## 🧠 Personalized Learning Roadmaps
+Generate **custom learning paths** based on:
+- Current skills
+- Career goals (Backend, AI, Full Stack, etc.)
+- Experience level
 
-### 📊 DSA Skill Analysis
-Analyzes coding patterns and identifies weak topics in data structures and algorithms.
-
-### 🤖 AI-Powered Recommendations
-Suggests relevant projects, technologies, and learning resources using machine learning models.
-
-### 📄 Resume & Portfolio Analyzer
-Evaluates a developer's resume or GitHub profile and provides suggestions to improve technical portfolios.
-
-### 💡 Smart Project Suggestions
-Recommends projects based on missing skills and target career roles.
-
-### 📈 Learning Analytics
-Tracks learning progress and visualizes improvement over time.
+Roadmaps include **weekly milestones, technologies to learn, and practice tasks**.
 
 ---
 
-## 🏗 System Architecture
+## 📊 DSA Skill Analysis
+Analyze coding performance and identify **weak areas in Data Structures and Algorithms**.
 
-Frontend (React / Next.js)
+Features:
+- Topic-wise skill breakdown
+- Recommended practice problems
+- Personalized improvement suggestions
+
+---
+
+## 📚 Course Management System
+DevCompass includes a **built-in course platform** where users can learn through structured modules.
+
+### Course Structure
+
+Course
+└ Module
+└ Lesson
+└ Quiz
+└ Coding Exercise
+
+
+### Capabilities
+
+- 📖 Structured technical courses
+- 🎥 Video lessons and tutorials
+- 📝 Coding assignments
+- ❓ Quizzes for evaluation
+- 📊 Progress tracking
+- 🏆 Course completion certificates
+
+Courses may include:
+
+- Data Structures & Algorithms  
+- Backend Development  
+- Frontend Development  
+- System Design  
+- Machine Learning  
+
+---
+
+## 🤖 AI-Powered Recommendations
+The platform suggests:
+
+- Learning resources
+- Courses
+- Projects
+- Technologies to learn next
+
+Recommendations are based on **user skill gaps and career goals**.
+
+---
+
+## 📄 Resume & Portfolio Analyzer
+Upload a **resume or connect GitHub profile** to receive:
+
+- Extracted skills
+- Missing technology suggestions
+- Portfolio improvement tips
+- Resume optimization feedback
+
+---
+
+## 💡 Smart Project Suggestions
+DevCompass recommends projects depending on a user's experience level.
+
+### Example Suggestions
+
+**Beginner**
+- To-Do List App
+- REST API with authentication
+
+**Intermediate**
+- Real-time chat application
+- Blog platform with CMS
+
+**Advanced**
+- Distributed system
+- Real-time collaboration platform
+
+---
+
+## 📈 Learning Analytics Dashboard
+Track learning progress using visual analytics.
+
+Dashboard includes:
+
+- Skill improvement graphs
+- Course completion progress
+- Roadmap milestones
+- Coding activity statistics
+
+---
+
+# 🏗 System Architecture
+
+Frontend (React.js)
 |
-API Layer
 |
-Backend Services (Django / FastAPI)
+REST API Layer
+|
+|
+Backend Services (Django)
 ├── User Service
 ├── Roadmap Generator
+├── Course Management Service
 ├── Recommendation Engine
 ├── Resume Analyzer
+├── Analytics Service
+|
 |
 Database (PostgreSQL)
 |
-ML Engine (Python / Scikit-learn / PyTorch)
+|
+ML Engine (Python)
+
 
 
 ---
 
-## 🛠 Tech Stack
+# 🛠 Tech Stack
 
-### Frontend
-- React / Next.js
+## Frontend
+- React.js
 - Tailwind CSS
+- Axios
+- React Router
+- Recharts (analytics visualization)
 
-### Backend
-- Django / FastAPI
-- REST APIs
+---
 
-### Database
+## Backend
+- Django
+- Django REST Framework
+- JWT Authentication
+- Celery (background tasks)
+
+---
+
+## Database
 - PostgreSQL
-- Redis (optional caching)
+- Redis (caching & task queues)
 
-### AI / Machine Learning
+---
+
+## AI / Machine Learning
 - Python
 - Scikit-learn
 - PyTorch
-- NLP Models
+- NLP models for resume analysis
 
-### Data Analysis
+---
+
+## Data Analysis
 - Pandas
 - NumPy
 - Matplotlib
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 devcompass
 │
-├── frontend
-│
 ├── backend
+│ ├── devcompass
+│ ├── users
+│ ├── roadmap
+│ ├── courses
+│ ├── recommendations
+│ ├── analytics
+│ ├── resume_analyzer
+│ └── requirements.txt
+│
+├── frontend
+│ ├── src
+│ │ ├── components
+│ │ ├── pages
+│ │ ├── services
+│ │ ├── hooks
+│ │ └── utils
 │
 ├── ml-engine
+│ ├── skill_analysis
+│ ├── resume_nlp
+│ └── recommendation_models
 │
-├── data-pipeline
-│
-├── docs
+├── docker
 │
 └── README.md
 
 
 ---
 
-## 🎯 Target Users
+# ⚙️ Installation
 
-- Computer science students
-- Self-taught developers
-- Software engineers preparing for technical interviews
-- Developers looking for structured learning paths
+## 1️⃣ Clone Repository
 
----
+```bash
+git clone https://github.com/yourusername/devcompass.git
+cd devcompass
 
-## 📌 Future Improvements
 
-- GitHub profile analysis
-- AI interview simulator
-- Skill graph visualization
-- Community project collaboration
-- Real-time coding progress tracking
+2️⃣ Backend Setup
+cd backend
 
----
+python -m venv venv
+source venv/bin/activate
 
-## 🤝 Contributing
+pip install -r requirements.txt
 
-Contributions are welcome. Feel free to open issues or submit pull requests to improve the platform.
+python manage.py migrate
+python manage.py runserver
+3️⃣ Frontend Setup
+cd frontend
 
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
----
-
-## ⭐ Project Vision
-
-DevCompass aims to become an intelligent platform that helps developers **build the right skills, practice effectively, and navigate their path toward becoming world-class engineers.**
+npm install
+npm run dev
+4️⃣ Start Redis (optional)
+redis-server
+🔑 API Endpoints
+Authentication
+POST /api/register
+POST /api/login
+User
+GET /api/profile
+PUT /api/profile
+Courses
+GET /api/courses
+GET /api/course/{id}
+Roadmaps
+POST /api/generate-roadmap
+GET /api/user-roadmap
+Resume Analyzer
+POST /api/analyze-resume
+Recommendations
+GET /api/projects
+Analytics
+GET /api/dashboard
+🎯 Target Users
+Computer Science Students
+Self-taught Developers
+Developers preparing for technical interviews
+Engineers seeking structured learning paths
+📌 Future Improvements
+🔗 GitHub profile skill analysis
+🤖 AI interview simulator
+📊 Skill graph visualization
+🧑‍💻 Real-time coding activity tracking
+🌍 Community learning & collaboration
+🎓 Marketplace for expert-created courses
+🤝 Contributing
+Contributions are welcome.
+Steps to contribute:
+Fork the repository
+Create a feature branch
+Commit your changes
+Submit a Pull Request
 
