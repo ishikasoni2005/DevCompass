@@ -8,7 +8,7 @@ DevCompass is an AI-powered developer career navigator that helps users understa
 - Backend: Django, Django REST Framework, JWT auth, PostgreSQL
 - AI/ML: Python, Pandas, Scikit-learn, PDF/NLP resume analysis
 - Background jobs: Redis, Celery
-- Deployment: Docker, Docker Compose, Nginx
+- Deployment: Docker, Docker Compose
 
 ## Features
 
