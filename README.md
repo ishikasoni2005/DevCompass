@@ -9,6 +9,7 @@ DevCompass is an AI-powered developer career navigator that helps users understa
 - AI/ML: Python, Pandas, Scikit-learn, PDF/NLP resume analysis
 - Background jobs: Redis, Celery
 - Deployment: Docker, Docker Compose
+- Database: MongoDB
 
 ## Features
 
